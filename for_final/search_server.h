@@ -15,8 +15,9 @@ public:
     explicit SearchServer(const StringContainer& stop_words)
         : stop_words_(MakeUniqueNonEmptyStrings(stop_words))  // Extract non-empty stop words
     {
+            using namespace std::literals;
         if (!std::all_of(stop_words_.begin(), stop_words_.end(), IsValidWord)) {
-            throw std::invalid_argument("Some of stop words are invalid");
+            throw std::invalid_argument("Some of stop words are invalid"s);
         }
     }
 

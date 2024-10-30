@@ -7,8 +7,9 @@
 
     void SearchServer::AddDocument(int document_id, const std::string& document, DocumentStatus status,
                      const std::vector<int>& ratings) {
+        using namespace std::literals;
         if ((document_id < 0) || (documents_.count(document_id) > 0)) {
-            throw std::invalid_argument("Invalid document_id");
+            throw std::invalid_argument("Invalid document_id"s);
         }
         const auto words = SplitIntoWordsNoStop(document);
 
@@ -77,10 +78,11 @@
     }
 
     std::vector<std::string> SearchServer::SplitIntoWordsNoStop(const std::string& text) const {
+        using namespace std::literals;
         std::vector<std::string> words;
         for (const std::string& word : SplitIntoWords(text)) {
             if (!IsValidWord(word)) {
-                throw std::invalid_argument("Word " + word + " is invalid");
+                throw std::invalid_argument("Word "s + word + " is invalid"s);
             }
             if (!IsStopWord(word)) {
                 words.push_back(word);
@@ -101,8 +103,9 @@
     }
 
     SearchServer::QueryWord SearchServer::ParseQueryWord(const std::string& text) const {
+        using namespace std::literals;
         if (text.empty()) {
-            throw invalid_argument("Query word is empty");
+            throw std::invalid_argument("Query word is empty"s);
         }
         std::string word = text;
         bool is_minus = false;
@@ -111,7 +114,7 @@
             word = word.substr(1);
         }
         if (word.empty() || word[0] == '-' || !IsValidWord(word)) {
-            throw std::invalid_argument("Query word " + text + " is invalid");
+            throw std::invalid_argument("Query word "s + text + " is invalid"s);
         }
 
         return {word, is_minus, IsStopWord(word)};

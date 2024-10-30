@@ -61,10 +61,11 @@ private:
     std::vector<IteratorRange<Iterator>> results_;
 };
 std::ostream& operator<<(std::ostream& output, const Document& document) {
-    output << "{ "
-           << "document_id = " << document.id << ", "
-           << "relevance = " << document.relevance << ", "
-           << "rating = " << document.rating << " }";
+    using namespace std::literals;
+    output << "{ "s
+           << "document_id = "s << document.id << ", "s
+           << "relevance = "s << document.relevance << ", "s
+           << "rating = "s << document.rating << " }"s;
     return output;
 }
 
